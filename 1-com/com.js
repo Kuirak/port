@@ -1,14 +1,14 @@
-var WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({ port: 8080 });
+var WebSocketServer = require("ws").Server,
+  wss = new WebSocketServer({ port: 8080 });
 
-wss.on('connection', function connection(peer){
-  peer.on('message', function incoming(data){
-    console.log('received:', data);
+wss.on("connection", function connection(peer) {
+  peer.on("message", function incoming(data) {
+    console.log("received:", data);
   });
   var count = 0;
-  setInterval(function(){
+  setInterval(function() {
     count += 1;
-    peer.send('hello world ' + count);
+    peer.send("hello world " + count);
   }, 1000);
 });
 
