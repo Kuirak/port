@@ -1,21 +1,18 @@
-var WebSocketServer = require("ws").Server,
-  wss = new WebSocketServer({ port: 8080 });
+const WebSocketServer = require("ws").Server;
 
-wss.on("connection", function connection(peer) {
-  peer.on("message", function incoming(data) {
-    console.log("received:", data);
+async function createGunServer(options) {
+  const wss = new WebSocketServer(options.ws);
+  wss.on("connection", peer => {
+    console.log("peer connected");
+    peer.on("message", data => {
+      console.log("received", data);
+      peer.send(data);
+    });
+
+    peer.send("message on connect");
+    setTimeout(() => peer.send("message after one second"), 1000);
   });
-  var count = 0;
-  setInterval(function() {
-    count += 1;
-    peer.send("hello world " + count);
-  }, 1000);
-});
+  return wss;
+}
 
-/* // BROWSER!
-var peer = new WebSocket('ws://localhost:8080');
-peer.onopen = function(o){ console.log('open', o) };
-peer.onclose = function(c){ console.log('close', c) };
-peer.onmessage = function(m){ console.log(m.data) };
-peer.onerror = function(e){ console.log('error', e) };
-*/
+createGunServer({ ws: { port: 8080 } });

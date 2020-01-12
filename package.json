@@ -1,0 +1,17 @@
+{
+  "name": "gun-port",
+  "version": "1.0.0",
+  "description": "Gun porting guide",
+  "main": "index.js",
+  "repository": "git@github.com:Kuirak/port.git",
+  "author": "Jonas Kugelmann <public@kumans.net>",
+  "license": "MIT",
+  "scripts": {
+    "start-1": "node 1-com/com.js",
+    "test-1": "jest 1-com/com.test.js"
+  },
+  "dependencies": {
+    "jest": "^24.9.0",
+    "ws": "^7.2.1"
+  }
+}
